@@ -6,6 +6,7 @@ which indicator they want to know about and outputs it to the console.
 """
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.common.by import By
 
 
 def print_options():
@@ -19,13 +20,13 @@ def print_options():
 
 """Launch Firefox in headless mode."""
 options = Options()
-options.headless = True
+options.add_argument("-headless")
 browser = webdriver.Firefox(options=options)
 
 """Saving indicator names and their values from Statistics Estonia's homepage."""
 browser.get('https://www.stat.ee/en/avasta-statistikat/main-indicators')
-webpage_names = browser.find_elements_by_class_name("button__label")  # Names
-webpage_indicators = browser.find_elements_by_class_name("indicator-single__value")  # Indicators
+webpage_names = browser.find_elements(By.CLASS_NAME, "button__label")  # Names
+webpage_indicators = browser.find_elements(By.CLASS_NAME, "indicator-single__value")  # Indicators
 
 
 """Writing the numerical values of indicators to a file."""
